@@ -1,211 +1,240 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Erweiterte Erinnerungen Timeline</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-    .timeline-container {
-      max-width: 900px;
-      margin: 3rem auto;
-      position: relative;
-      padding: 2rem 0;
-    }
-    /* Vertikale Linie in der Mitte */
-    .timeline-line {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 4px;
-      background-color: #198754; /* Bootstrap Grün */
-      transform: translateX(-50%);
-      border-radius: 2px;
-    }
-    /* Timeline-Item */
-    .timeline-item {
-      position: relative;
-      width: 45%;
-      padding: 1rem 2rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      background: white;
-      border-radius: 0.5rem;
-      margin-bottom: 3rem;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    .timeline-item.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    /* Linke Timeline-Items */
-    .timeline-item-left {
-      left: 0;
-      margin-right: auto;
-    }
-    /* Rechte Timeline-Items */
-    .timeline-item-right {
-      left: 55%;
-      margin-left: auto;
-    }
-    /* Kleine Kreise auf der Linie für jedes Ereignis */
-    .timeline-circle {
-      position: absolute;
-      top: 20px;
-      width: 20px;
-      height: 20px;
-      background-color: #198754;
-      border-radius: 50%;
-      border: 3px solid white;
-      box-shadow: 0 0 5px rgba(25,135,84,0.7);
-    }
-    /* Position des Kreises */
-    .timeline-item-left .timeline-circle {
-      right: -38px;
-    }
-    .timeline-item-right .timeline-circle {
-      left: -38px;
-    }
-    /* Icons */
-    .timeline-icon {
-      font-size: 1.5rem;
-      margin-right: 0.5rem;
-      color: #198754;
-    }
-    /* Responsive */
-    @media (max-width: 768px) {
-      .timeline-item,
-      .timeline-item-left,
-      .timeline-item-right {
-        width: 100%;
-        left: 0 !important;
-        margin: 0 0 2rem 0 !important;
-      }
-      .timeline-circle {
-        left: -38px !important;
-        right: auto !important;
-        top: 15px;
-      }
-      .timeline-line {
-        left: 20px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Erweiterte Erinnerungen Timeline</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .timeline-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        /* Vertikale Linie in der Mitte */
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background-color: #198754;
+            /* Bootstrap Grün */
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* Timeline-Item */
+        .timeline-item {
+            position: relative;
+            width: 45%;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+            border-radius: 0.5rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .timeline-item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Linke Timeline-Items */
+        .timeline-item-left {
+            left: 0;
+            margin-right: auto;
+        }
+
+        /* Rechte Timeline-Items */
+        .timeline-item-right {
+            left: 55%;
+            margin-left: auto;
+        }
+
+        /* Kleine Kreise auf der Linie für jedes Ereignis */
+        .timeline-circle {
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background-color: #198754;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 5px rgba(25, 135, 84, 0.7);
+        }
+
+        /* Position des Kreises */
+        .timeline-item-left .timeline-circle {
+            right: -38px;
+        }
+
+        .timeline-item-right .timeline-circle {
+            left: -38px;
+        }
+
+        /* Icons */
+        .timeline-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+            color: #198754;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            .timeline-item,
+            .timeline-item-left,
+            .timeline-item-right {
+                width: 100%;
+                left: 0 !important;
+                margin: 0 0 2rem 0 !important;
+            }
+
+            .timeline-circle {
+                left: -38px !important;
+                right: auto !important;
+                top: 15px;
+            }
+
+            .timeline-line {
+                left: 20px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-  <header class="bg-success text-white text-center py-3">
-    <h1>Willkommen auf unserer Familienseite!</h1>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-      <div class="container">
-        <a class="navbar-brand" href="#">Familie Riedel</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link text-white" href="index.html">Start</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="rezepte.html">Rezepte</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="garten.html">Garten</a></li>
-            <li class="nav-item"><a class="nav-link active text-white" href="erinnerungen.html">Erinnerungen</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="kontakt.html">Kontakt</a></li>
-          </ul>
+    <header class="bg-success text-white text-center py-3">
+        <h1>Willkommen auf unserer Familienseite!</h1>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="container">
+                <a class="navbar-brand" href="#">Familie Riedel</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link text-white" href="index.html">Start</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="rezepte.html">Rezepte</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="garten.html">Garten</a></li>
+                        <li class="nav-item"><a class="nav-link active text-white"
+                                href="erinnerungen.html">Erinnerungen</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="kontakt.html">Kontakt</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container timeline-container">
+            <h1 class="mb-5 text-success text-center">Erinnerungen</h1>
+            <div class="timeline-line"></div>
+
+            <div class="timeline-item timeline-item-left">
+                <div class="timeline-circle"></div>
+                <h5 class="card-title">
+                    <span class="timeline-icon">🚶‍♂️</span>
+                    1989 – Einfach abgehauen, von Ost- nach Westdeutschland
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Vor dem Mauerfall, im Herbst 1989</h6>
+                <img src="bilder/1989-flucht.jpg" alt="Flucht 1989" class="img-fluid rounded mb-2" />
+                <p class="card-text">
+                    Wir entschieden uns, die Grenze zu überwinden – voller Hoffnung, aber auch mit Angst vor dem
+                    Unbekannten. Der Weg war gefährlich, doch die Sehnsucht nach Freiheit war stärker als die Zweifel.
+                </p>
+            </div>
+
+            <div class="timeline-item timeline-item-right">
+                <div class="timeline-circle"></div>
+                <h5 class="card-title">
+                    <span class="timeline-icon">🕊️</span>
+                    9. November 1989 – Der Mauerfall
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Ein historischer Tag</h6>
+                <p class="card-text">
+                    Die Nachricht vom Mauerfall verbreitete sich wie ein Lauffeuer. Wir konnten es kaum fassen: Die
+                    Grenze war offen! Ein Moment voller Freude, Erleichterung und Tränen – das Ende einer Ära.
+                </p>
+            </div>
+
+            <div class="timeline-item timeline-item-left">
+                <div class="timeline-circle"></div>
+                <h5 class="card-title">
+                    <span class="timeline-icon">🏫</span>
+                    1990er Jahre – Eingewöhnung im Westen
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Ein neues Leben beginnt</h6>
+                <p class="card-text">
+                    Der Neustart war nicht leicht. Neue Schule, neue Sprache, neue Regeln. Doch wir wurden offen
+                    empfangen und fanden schnell Freunde. Die Unterschiede zum Osten waren groß, aber die Chancen auch.
+                </p>
+            </div>
+
+            <div class="timeline-item timeline-item-right">
+                <div class="timeline-circle"></div>
+                <h5 class="card-title">
+                    <span class="timeline-icon">🎓</span>
+                    2000er Jahre – Persönliche Highlights
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Bildung und Beruf</h6>
+                <p class="card-text">
+                    Ausbildung, erste Jobs und Reisen prägten diese Jahre. Wir entdeckten neue Perspektiven und
+                    entwickelten uns weiter.
+                </p>
+            </div>
+
+            <div class="timeline-item timeline-item-left">
+                <div class="timeline-circle"></div>
+                <h5 class="card-title">
+                    <span class="timeline-icon">🔮</span>
+                    Heute – Rückblick und Ausblick
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Was bleibt?</h6>
+                <p class="card-text">
+                    Die Geschichte unserer Familie ist ein Teil unserer Identität. Sie erinnert uns an Mut, Freiheit und
+                    Zusammenhalt. Heute blicken wir stolz auf den Weg zurück – und voller Hoffnung nach vorne.
+                </p>
+            </div>
+
         </div>
-      </div>
-    </nav>
-  </header>
+    </main>
+    <footer class="text-center py-3">
+        <p>&copy; 2025, Für Malla und Holli</p>
+    </footer>
 
-  <div class="container timeline-container">
-    <h1 class="mb-5 text-success text-center">Erinnerungen Timeline</h1>
-    <div class="timeline-line"></div>
+    <script>
+        // Fade-in Animation beim Scrollen
+        function showTimelineItems() {
+            const items = document.querySelectorAll('.timeline-item');
+            const triggerBottom = window.innerHeight * 0.85;
 
-    <div class="timeline-item timeline-item-left">
-      <div class="timeline-circle"></div>
-      <h5 class="card-title">
-        <span class="timeline-icon">🚶‍♂️</span>
-        1989 – Flucht von Ost- nach Westdeutschland
-      </h5>
-      <h6 class="card-subtitle mb-2 text-muted">Vor dem Mauerfall, im Herbst 1989</h6>
-      <img src="bilder/1989-flucht.jpg" alt="Flucht 1989" class="img-fluid rounded mb-2" />
-      <p class="card-text">
-        Wir entschieden uns, die Grenze zu überwinden – voller Hoffnung, aber auch mit Angst vor dem Unbekannten. Der Weg war gefährlich, doch die Sehnsucht nach Freiheit war stärker als die Zweifel.
-      </p>
-    </div>
-
-    <div class="timeline-item timeline-item-right">
-      <div class="timeline-circle"></div>
-      <h5 class="card-title">
-        <span class="timeline-icon">🕊️</span>
-        9. November 1989 – Der Mauerfall
-      </h5>
-      <h6 class="card-subtitle mb-2 text-muted">Ein historischer Tag</h6>
-      <p class="card-text">
-        Die Nachricht vom Mauerfall verbreitete sich wie ein Lauffeuer. Wir konnten es kaum fassen: Die Grenze war offen! Ein Moment voller Freude, Erleichterung und Tränen – das Ende einer Ära.
-      </p>
-    </div>
-
-    <div class="timeline-item timeline-item-left">
-      <div class="timeline-circle"></div>
-      <h5 class="card-title">
-        <span class="timeline-icon">🏫</span>
-        1990er Jahre – Eingewöhnung im Westen
-      </h5>
-      <h6 class="card-subtitle mb-2 text-muted">Ein neues Leben beginnt</h6>
-      <p class="card-text">
-        Der Neustart war nicht leicht. Neue Schule, neue Sprache, neue Regeln. Doch wir wurden offen empfangen und fanden schnell Freunde. Die Unterschiede zum Osten waren groß, aber die Chancen auch.
-      </p>
-    </div>
-
-    <div class="timeline-item timeline-item-right">
-      <div class="timeline-circle"></div>
-      <h5 class="card-title">
-        <span class="timeline-icon">🎓</span>
-        2000er Jahre – Persönliche Highlights
-      </h5>
-      <h6 class="card-subtitle mb-2 text-muted">Bildung und Beruf</h6>
-      <p class="card-text">
-        Ausbildung, erste Jobs und Reisen prägten diese Jahre. Wir entdeckten neue Perspektiven und entwickelten uns weiter.
-      </p>
-    </div>
-
-    <div class="timeline-item timeline-item-left">
-      <div class="timeline-circle"></div>
-      <h5 class="card-title">
-        <span class="timeline-icon">🔮</span>
-        Heute – Rückblick und Ausblick
-      </h5>
-      <h6 class="card-subtitle mb-2 text-muted">Was bleibt?</h6>
-      <p class="card-text">
-        Die Geschichte unserer Familie ist ein Teil unserer Identität. Sie erinnert uns an Mut, Freiheit und Zusammenhalt. Heute blicken wir stolz auf den Weg zurück – und voller Hoffnung nach vorne.
-      </p>
-    </div>
-
-  </div>
-
-  <script>
-    // Fade-in Animation beim Scrollen
-    function showTimelineItems() {
-      const items = document.querySelectorAll('.timeline-item');
-      const triggerBottom = window.innerHeight * 0.85;
-
-      items.forEach(item => {
-        const itemTop = item.getBoundingClientRect().top;
-        if (itemTop < triggerBottom) {
-          item.classList.add('show');
+            items.forEach(item => {
+                const itemTop = item.getBoundingClientRect().top;
+                if (itemTop < triggerBottom) {
+                    item.classList.add('show');
+                }
+            });
         }
-      });
-    }
 
-    window.addEventListener('scroll', showTimelineItems);
-    window.addEventListener('load', showTimelineItems);
-  </script>
+        window.addEventListener('scroll', showTimelineItems);
+        window.addEventListener('load', showTimelineItems);
+    </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
